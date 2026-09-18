@@ -1,0 +1,103 @@
+@import "reset.css";
+
+#app {
+  padding: 1rem;
+  height: 100%;
+
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+}
+
+#title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  font-size: 3rem;
+}
+
+#title svg {
+  scale: 150%;
+}
+
+#search {
+  position: relative;
+}
+
+#search input {
+  padding: 1rem;
+  padding-inline: 3rem;
+  border-radius: 50rem;
+  border: 1px solid var(--border);
+  width: 100%;
+  font-size: 1rem;
+}
+
+#search svg {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+#search button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  translate: 0 -50%;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
+  font-size: 1rem;
+}
+
+#advice {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0;
+}
+
+#advice button {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+#advice li:first-child {
+  list-style: none;
+}
+
+[popover]:popover-open {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 1rem;
+
+  width: 100%;
+  height: 100%;
+  max-width: 45rem;
+  max-height: 25rem;
+
+  overflow-y: scroll;
+}
+
+.close {
+  background-color: transparent;
+  border: 0;
+  float: right;
+  cursor: pointer;
+}
+
+.content {
+  float: left;
+}
