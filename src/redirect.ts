@@ -1,7 +1,7 @@
 import bangs from "./bangs.json";
 const DEFAULT_BANG = "ddg";
 
-export default function redirect(q: string) {
+export default function redirect(q: string, keepHistory = false) {
   const match =
     q.match(/!(\S+)/i)?.[1]?.toLowerCase() ?? localStorage.getItem("default");
   const bang =
@@ -14,5 +14,6 @@ export default function redirect(q: string) {
   if (!query) url = `https://${bang.d}`;
   else url = url = bang.u.replace("{{{s}}}", encodeURI(query));
 
-  location.replace(url);
+  if (keepHistory) location.href = url;
+  else location.replace(url);
 }
