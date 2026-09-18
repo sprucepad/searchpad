@@ -14,6 +14,8 @@ export default function redirect(q: string, keepHistory = false) {
   if (!query) url = `https://${bang.d}`;
   else url = url = bang.u.replace("{{{s}}}", encodeURI(query));
 
+  document.title = `${query ? bang.s : query} - searchpad`;
+
   if (keepHistory) location.href = url;
   else location.replace(url);
 }

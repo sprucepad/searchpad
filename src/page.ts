@@ -1,6 +1,8 @@
 import redirect from "./redirect.ts";
 import searchIcon from "./assets/search.svg?raw";
 import xIcon from "./assets/x.svg?raw";
+import clipboardIcon from "./assets/clipboard.svg?raw";
+import clipboardCheckIcon from "./assets/clipboard-check.svg?raw";
 
 export default function createPage() {
   const theme = localStorage.getItem("theme") ?? "auto";
@@ -36,16 +38,20 @@ export default function createPage() {
     </ul>
 
     <dialog class="dialog" id="bang-search" popover>
-      <div class="content">
-        <h1>Bangs</h1>
-      </div>
-
       <button class="close" popovertarget="bang-search" popoverhide>
         ${xIcon}
       </button>
+
+      <div class="content">
+        <h1>Bangs</h1>
+      </div>
     </dialog>
 
     <dialog class="dialog" id="settings" popover>
+      <button class="close" popovertarget="settings" popoverhide>
+        ${xIcon}
+      </button>
+
       <div class="content">
         <h1>Settings</h1>
         <p class="content-desc">Saved automatically</p>
@@ -73,18 +79,37 @@ export default function createPage() {
           </select>
         </form>
       </div>
-
-      <button class="close" popovertarget="settings" popoverhide>
-        ${xIcon}
-      </button>
     </dialog>
 
     <dialog class="dialog" id="setup" popover>
-      <div class="content">
-        <h1>Setup</h1>
-      </div>
-
       <button class="close" popovertarget="setup" popoverhide>${xIcon}</button>
+
+      <div class="content">
+        <h1 class="content-title">Setup</h1>
+
+        <div class="setup form">
+          <p>
+            Copy this URL as a custom search engine in your browser settings:
+          </p>
+          <label class="copy">
+            <input
+              readonly
+              class="input setup-input"
+              type="text"
+              value="https://search.sprucepad.net/?q=%s"
+              id="setup-input"
+            />
+
+            <button
+              class="button copy-button"
+              aria-label="Copy"
+              id="copy-button"
+            >
+              ${clipboardIcon}
+            </button>
+          </label>
+        </div>
+      </div>
     </dialog>
   `;
 
@@ -113,5 +138,17 @@ export default function createPage() {
     const val = (e.target as HTMLSelectElement)?.value ?? "auto";
     document.documentElement.dataset.theme = val;
     localStorage.setItem("theme", val);
+  });
+
+  const setupInput = document.getElementById("setup-input");
+  const copyButton = document.getElementById("copy-button");
+  copyButton?.addEventListener("click", async () => {
+    if (!setupInput) return;
+    await navigator.clipboard.writeText((setupInput as HTMLInputElement).value);
+
+    copyButton.innerHTML = clipboardCheckIcon;
+    setTimeout(() => {
+      copyButton.innerHTML = clipboardIcon;
+    }, 2500);
   });
 }
