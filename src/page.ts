@@ -3,6 +3,7 @@ import searchIcon from "./assets/search.svg?raw";
 import xIcon from "./assets/x.svg?raw";
 import clipboardIcon from "./assets/clipboard.svg?raw";
 import clipboardCheckIcon from "./assets/clipboard-check.svg?raw";
+import bangs from "./bangs.json";
 
 export default function createPage() {
   const theme = localStorage.getItem("theme") ?? "auto";
@@ -43,7 +44,21 @@ export default function createPage() {
       </button>
 
       <div class="content">
-        <h1>Bangs</h1>
+        <h1 class="content-title">Bangs</h1>
+
+        <form id="search-bangs">
+          <label class="search bangs">
+            <input
+              class="input bang-search-input"
+              placeholder="Search bangs..."
+            />
+            <button class="button search-button" type="submit">Go</button>
+          </label>
+        </form>
+
+        <div class="results" id="bang-results">
+          <p>Press 'Go' to start!</p>
+        </div>
       </div>
     </dialog>
 
@@ -111,6 +126,8 @@ export default function createPage() {
         </div>
       </div>
     </dialog>
+
+    <p class="copyright">Copyright &copy; 2026 sprucepad. MIT License.</p>
   `;
 
   const searchForm = document.getElementById("search-form");
@@ -150,5 +167,28 @@ export default function createPage() {
     setTimeout(() => {
       copyButton.innerHTML = clipboardIcon;
     }, 2500);
+  });
+
+  const bangSearch = document.getElementById("search-bangs");
+  const results = document.getElementById("bang-results");
+  bangSearch?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!results) return;
+
+    const val =
+      bangSearch.querySelector("input")?.value.toLowerCase().trim() ?? "";
+    const filteredBangs = bangs.filter(
+      (b) => b.t.includes(val) || b.s.includes(val),
+    );
+    results.innerHTML = filteredBangs
+      .map(
+        (bang) => `
+          <div class="bang">
+            <p class="bang-name">${bang.s}</p>
+            <p class="bang-id">!${bang.t}</p>
+          </div>
+        `,
+      )
+      .join("");
   });
 }

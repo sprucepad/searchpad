@@ -56,9 +56,15 @@
   padding-inline: 3rem;
 }
 
-.setup-input {
+.setup-input,
+.bang-search-input {
   padding: 1rem;
   padding-inline-end: 3rem;
+}
+
+.bangs,
+.bang-search-input {
+  width: 100%;
 }
 
 .search svg {
@@ -122,6 +128,7 @@
 }
 
 .content {
+  width: 95%;
   float: left;
 }
 
@@ -133,4 +140,35 @@
 
 .copy {
   position: relative;
+}
+
+.results {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.results > p {
+  grid-column: span 2;
+  text-align: center;
+  opacity: 50%;
+}
+
+.bang {
+  overflow: scroll;
+  padding: 0.5rem;
+}
+
+.bang-name {
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.copyright {
+  opacity: 50%;
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  translate: -50% 0;
 }
