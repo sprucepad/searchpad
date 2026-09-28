@@ -12,7 +12,19 @@ export default function redirect(q: string, keepHistory = false) {
 
   let url: string | undefined;
   if (!query) url = `https://${bang.d}`;
-  else url = url = bang.u.replace("{{{s}}}", encodeURI(query));
+  else {
+    let component: string;
+    // does this url end with query params (`?hello=world`) or hash (`#hello=world`)?
+    if (/(?:\?[^#]*|#.*)$/.test(bang.d)) {
+      // then, encode slashes, to not break the URL (!g, !ddg, etc.)
+      component = encodeURIComponent(query);
+    } else {
+      // else, don't encode them (!ghr)
+      component = encodeURI(query);
+    }
+
+    url = url = bang.u.replace("{{{s}}}", component);
+  }
 
   document.title = `${query || bang.s} - searchpad`;
 
