@@ -15,7 +15,7 @@ export default function redirect(q: string, keepHistory = false) {
   else {
     let component: string;
     // does this url end with query params (`?hello=world`) or hash (`#hello=world`)?
-    if (/(?:\?[^#]*|#.*)$/.test(bang.d)) {
+    if (/(?:\?[^#]*|#.*)$/.test(bang.u)) {
       // then, encode slashes, to not break the URL (!g, !ddg, etc.)
       component = encodeURIComponent(query);
     } else {

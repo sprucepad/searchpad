@@ -168,7 +168,8 @@
 .copyright {
   opacity: 50%;
   position: absolute;
-  left: 50%;
+  left: 0;
   bottom: 1rem;
-  translate: -50% 0;
+  width: 100%;
+  text-align: center;
 }
